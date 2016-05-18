@@ -1,0 +1,15 @@
+
+
+CALL `MendayInHolland`.`insert_contact`(@id, 'street1', 'street', 'city', 'county', 'zipcode', 'email', 'phone1', 'phone2');
+CALL `MendayInHolland`.`insert_contact_info`(@id, 'photo', 'name', 'surname', 'occupation', 'pob', 'marital status', 'hobbies', 'skills', 'qrcode', 'qrimage');
+
+
+
+
+
+CALL `MendayInHolland`.`insert_contact`(@id, 'street1', 'street', 'city', 'county', 'zipcode', 'email', 'phone1', 'phone2', 'photo', 'name', 'surname', 'occupation', 'pob', 'marital status', 'hobbies', 'skills', 'qrcode', 'qrimage');
+
+
+== !!!!! example create member == 
+CALL `MendayInHolland`.`create_member_new`(@id, 'Sesamestreet', 'bla', 'Rotterdam', 'Zuid-Holland', '3038BR', 'bla@bla.com', '0642109063', '0104578942', 'photo', 'Michiel', 'Pleijte', 'idioot', 'Goes', 'single', 'chips eten', 'nothing', 'qrcode1', 'qrimage1');
+
