@@ -1,0 +1,176 @@
+-- === PROCEDURES === --
+
+-- PROC: insert_contact --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_contact`(
+    IN `type` int(11), 
+    IN `street1` VARCHAR(30), 
+    IN `street2` VARCHAR(30), 
+    IN `city` VARCHAR(30), 
+    IN `state` VARCHAR(30), 
+    IN `zipcode` VARCHAR(30), 
+    IN `email` VARCHAR(100), 
+    IN `phone1` VARCHAR(15), 
+    IN `phone2` VARCHAR(15)
+)
+DETERMINISTIC
+COMMENT 'Create contact info a person'
+BEGIN
+
+  INSERT INTO `contact` (`type`, `street1`, `street2`, `city`, `state`, `zipcode`, `email`, `phone1`, `phone2`) VALUES
+  (type, street1, street2, city, state, zipcode, email, phone1, phone2);
+
+END$$
+
+-- PROC: insert_person --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_person`(
+  IN `id` int(11),
+  IN `contact_id` int(11),
+  IN `photo` varchar(20),
+  IN `name` varchar(20),
+  IN `surname` varchar(20),
+  IN `occupation` varchar(20),
+  IN `place_of_birth` varchar(20),
+  IN `martial_status` varchar(20),
+  IN `hobbies` varchar(20),
+  IN `skills` varchar(20),
+  IN `qrcode` varchar(20),
+  IN `qrimage` varchar(20)
+) 
+DETERMINISTIC
+COMMENT 'Create a person (which later on will be added as member)'
+BEGIN
+
+    INSERT INTO `person` (`id`, `contact_id`, `photo`, `name`, `surname`, `occupation`, `place_of_birth`, `martial_status`, `hobbies`, `skills`, `qrcode`, `qrimage`) VALUES
+    (id, contact_id, photo, name, surname, occupation, place_of_birth, martial_status, hobbies, skills, qrcode, qrimage);
+
+END$$
+
+-- PROC: insert_member --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_member`(
+    IN `id` VARCHAR(30), 
+    IN `active` VARCHAR(30)
+)
+DETERMINISTIC
+COMMENT 'Create membership info'
+BEGIN
+
+  INSERT INTO `member` (`id`, `active`) VALUES
+  (id, active);
+
+END$$
+
+-- === // PROCEDURES ===
+
+
+-- > 
+-- > Intentional whitespace
+-- >
+
+
+-- === DATA DUMP ===
+-- contact
+INSERT INTO `contact` (`id`, `street1`, `street2`, `city`, `state`, `zipcode`, `email`, `phone1`, `phone2`) VALUES
+('MendayStreet 1', '', 'Menday city', '', '4444 CC', 'menday@menday.com', '0107458914', ''),
+('Almeranystraat 1', '', 'Rotterdam', 'Zuid-Holland', '3044 BR', 'almerant@almerany.com', '', ''),
+('', '', '', '', '', '', '', ''),
+('VeryOldWay', '', 'CityFromThePast', '', '', '', '', '');
+
+-- institute
+INSERT INTO `institute` (`id`, `contact_id`, `name`, `bank_id`) VALUES
+(1, 1, 'Menday', ''),
+(2, NULL, 'Church of FSM', ''),
+(3, NULL, 'Bible Group', '');
+SET LID_institute = LAST_INSERT_ID();
+
+-- member
+INSERT INTO `member` (`id`, `institute_id`, `active`) VALUES
+(1, 1, '1'),
+(2, 1, '1'),
+(3, 3, '1'),
+(4, 1, '0');
+SET LID_member = LAST_INSERT_ID();
+
+-- person
+INSERT INTO `person` (`id`, `contact_id`, `photo`, `name`, `surname`, `occupation`, `place_of_birth`, `martial_status`, `hobbies`, `skills`, `qrcode`, `qrimage`) VALUES
+(1, 2, '', 'mevrouw', 'Almerany', '', '', 'married', '', '', '', ''),
+(2, 2, '', 'Wisam', 'Almerany', 'Software Engeneer', '', 'married', '', '', '', ''),
+(3, 3, '', 'Michiel', 'Pleijte', 'developer', 'Goes', '', 'being lazy', 'madskillz', '', ''),
+(4, 4, '', 'Magere', 'Hein', '', '', '', '', '', '', '');
+SET LID_person = LAST_INSERT_ID();0
+-- === // DATA DUMP ===
+
+
+-- > 
+-- > Intentional whitespace
+-- >
+
+
+-- ===  VARIOUS SQL STATEMENTS ===
+-- ------------------------
+-- Reset auto increment field value to 1 for any given table
+-- ------------------------
+ALTER TABLE <tablename> AUTO_INCREMENT = 1;
+
+-- ------------------------
+-- After a record is inserted retrieve record id
+-- ------------------------
+SET LID = LAST_INSERT_ID();
+
+-- ------------------------
+-- Calling MySql procedure
+-- ------------------------
+call insert_member(1, 1, 1);
+
+
+-- > 
+-- > Intentional whitespace
+-- >
+
+-- ------------------------
+-- insert data examples
+---------------------------
+
+START TRANSACTION;
+declare lid_contact int(11);
+declare lid_member int(11);
+
+call insert_contact(1, 'MendayStreet 1',  '', 'Menday city', '', '4444 CC', 'menday@menday.com', '0107458914', '');
+SET lid_contact = last_insert_id();
+
+call insert_person(1, lid_contact, '', 'Wisam', 'Allmerany', '', '', 'married', '', '', '', '');
+SET lid_person = last_insert_id();
+
+call insert_membership(lid_person, 1, 'true');
+COMMIT;
+
+-- ===  // VARIOUS SQL STATEMENTS ===l
+
+
+
+call create_member();
+
+
+
+
+
+
+
+
+-- CALL Stored Procedure from another stored Stored Procedure in mySQL
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `my_proc` $$
+CREATE PROCEDURE my_proc()
+BEGIN
+  DECLARE shopdomain VARCHAR(30);
+END$$
+
+call my_proc() $$
+
+DELIMITER ;
+
+
+
+
+-- yahoo
+CALL `MendayInHolland`.`insert_contact`(@id, 'street1', 'street', 'city', 'county', 'zipcode', 'email', 'phone1', 'phone2');

@@ -1,23 +1,29 @@
 <?php
 
-require(dirname(__FILE__)."/lib/database.php");
-require(dirname(__FILE__)."/lib/helper.php");
-require(dirname(__FILE__)."/lib/CRUD/members/read.php");
+    session_start();
+    // index.php file  
+    include_once("/var/www/Menday/mvc/model/model.php");  
+    include_once("/var/www/Menday/mvc/controller/router.php");  
+    include_once("/var/www/Menday/mvc/view/template.php");
+    
+    $controller=$_REQUEST['controller'];
+    $action=$_REQUEST['action'];
+    $id=$_REQUEST['id'];
 
+    /*
+    if (isset($controller) &&  isset($action) )
+    {
+        //echo "_GET var is set!";
+        //var_dump($_REQUEST);
+    } else
+    {
+        echo "NO WAY JOSE";
+        exit(1);
+    }
+    */
 
-//DB :: beginTransaction();
-$members = getMembers(); //get member table from mysql and store as php array
-//debugPrint($members);
-$filter = 
-[
-    'contact_id'  => ['rename'=>'contact_id'], 
-    'name'        => ['rename'=>'voornaam'],
-    'surname'     => ['rename'=>'achternaam']
-];
-printAsMembersHtmlTable($members, $filter);
+    $router = new Router($controller, $action, ["id"=>$id]);
+    $view = $router ->createView();
+    echo $view->render();
 
-$button_create = '<form action=member_create.php method="post">'
-. '<input type="submit" value="create">'
-. '</form>';
-
-echo $button_create;
+?>
