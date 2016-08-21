@@ -34,7 +34,7 @@ function sendmail($attachment) {
   //Username to use for SMTP authentication - use full email address for gmail
   $mail->Username = "phub4reu@gmail.com";
   //Password to use for SMTP authentication
-  $mail->Password = "Ple12345";
+  $mail->Password = "";
   //Set who the message is to be sent from
   $mail->setFrom('phub4reu@gmail.com', 'phub4reu');
   //Set an alternative reply-to address
