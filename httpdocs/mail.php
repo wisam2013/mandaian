@@ -1,6 +1,6 @@
 <?php
 
-function sendmail($attachment) {
+function sendmail($attachment, $to, $to_name) {
   ini_set('display_errors', 1); error_reporting(E_ALL); 
   /**
   * This example shows settings to use when sending via Google's Gmail servers.
@@ -17,7 +17,7 @@ function sendmail($attachment) {
   // 0 = off (for production use)
   // 1 = client messages
   // 2 = client and server messages
-  $mail->SMTPDebug = 2;
+  $mail->SMTPDebug = 0;
   //Ask for HTML-friendly debug output
   $mail->Debugoutput = 'html';
   //Set the hostname of the mail server
@@ -32,34 +32,33 @@ function sendmail($attachment) {
   //Whether to use SMTP authentication
   $mail->SMTPAuth = true;
   //Username to use for SMTP authentication - use full email address for gmail
-  $mail->Username = "phub4reu@gmail.com";
+  $mail->Username = "censusmandaean@gmail.com";
   //Password to use for SMTP authentication
-  $mail->Password = "";
+  $mail->Password = "Darf...";
   //Set who the message is to be sent from
-  $mail->setFrom('phub4reu@gmail.com', 'phub4reu');
+  $mail->setFrom('censusmandaean@gmail.com', 'Wisam Almarany');
   //Set an alternative reply-to address
-  $mail->addReplyTo('phub4reu@gmail.com', 'phub4reu');
+  $mail->addReplyTo('censusmandaean@gmail.com', 'Wisam Almarany');
   //Set who the message is to be sent to
   $mail->addAddress('michiel.pleijte@gmail.com', 'Michiel Pleijte');
+  $mail->addAddress($to, $to_name);	
   //Set the subject line
   $mail->Subject = 'PHPMailer GMail SMTP test';
   //Read an HTML message body from an external file, convert referenced images to embedded,
   //convert HTML into a basic plain-text alternative body
-  $mail->msgHTML(file_get_contents('lib/PHPMailer/examples/contents.html'), dirname(__FILE__));
+  $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
   //Replace the plain text body with one created manually
   $mail->AltBody = 'This is a plain-text message body';
 
-  $text = "SOME;TEXT;INDEED";
-
   //Attach an image file
   //$mail->addAttachment('PHPMailer/examples/images/phpmailer_mini.png');
-  $mail->AddStringAttachment($attachment,'justAFilename','base64', 'text/csv');
+  $mail->AddStringAttachment($attachment,'attachment.csv','base64', 'text/csv');
   $mail->addAttachment($text);
   //send the message, check for errors
   if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
   } else {
-    echo "Message sent!";
+    echo "<br><h1>Message sent succesfully!</h1>";
   }
 }
 

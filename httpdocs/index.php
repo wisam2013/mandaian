@@ -1,21 +1,23 @@
-<?php 
+<!DOCTYPE html>
+<head>
+<title>Form submission</title>
+</head>
+<body>
+
+<form action="" method="post">
+First Name: <input type="text" name="first_name"><br>
+Last Name: <input type="text" name="last_name"><br>
+Email: <input type="text" name="email"><br>
+Info:<br><textarea rows="5" name="message" cols="30"></textarea><br>
+Gender: <select name="gender">
+  <option value="male">M</option> 
+  <option value="female" selected>F</option>
+  </select><br>
+<input type="submit" name="submit" value="Submit">
+</form>
+
+<?php
 	require 'mail.php';
-
-/*
-	function sendmail($to, $subject, $message, $headers) {
-		mail($to,$subject,$message,$headers);
-		//mail($from,$subject2,$message2,$headers2); // sends a copy of the message to the sender
-		echo "Mail Sent. Thank you " . $first_name . ", we will contact you shortly.";
-		// You can also use header('Location: thank_you.php'); to redirect to another page.		
-	}
-*/
-
-    function createCSV($arr) {
-        $fp = fopen('file.csv', 'w');
-  	    fputcsv($fp, array_keys($arr));
-		fputcsv($fp, array_values($arr));
-        fclose($fp);
-	}
 
 
 	function array_2_csv($array) {
@@ -30,29 +32,8 @@
 		return implode(';', $csv);
 	} 
 
-$csv_data = array_2_csv($array);
-
-
-?>
-
-<!DOCTYPE html>
-<head>
-<title>Form submission</title>
-</head>
-<body>
-
-<form action="" method="post">
-First Name: <input type="text" name="first_name"><br>
-Last Name: <input type="text" name="last_name"><br>
-Email: <input type="text" name="email"><br>
-Message:<br><textarea rows="5" name="message" cols="30"></textarea><br>
-<input type="submit" name="submit" value="Submit">
-</form>
-
-<?php
 
 	if(isset($_POST['submit'])){
-		$to = "wisam.almarany@gmail.com"; // this is your Email address
 		$from = $_POST['email']; // this is the sender's Email address
 		$first_name = $_POST['first_name'];
 		$last_name = $_POST['last_name'];
@@ -69,8 +50,10 @@ Message:<br><textarea rows="5" name="message" cols="30"></textarea><br>
         }		
 		$arr = $_POST;
 		unset($arr['submit']);
-		sendmail(array_2_csv($arr));
-		//createCSV($arr);
+		
+		
+		// Send the email
+		sendmail(array_2_csv($arr), 'wisam.almarany@gmail.com', 'Wisam Almarany');
     }
 ?>
 	
