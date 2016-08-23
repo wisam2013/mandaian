@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Form submission</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link href="styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
  <div class="info"></div>
@@ -29,51 +29,51 @@
             <div class="form-group">
             <p>Family name <span>*</span></p>
             <span class="icon-case"><i class="fa fa-user"></i></span>
-                <input type="text" name="Family_name" id="Family name" data-rule="required"/>
+                <input type="text" name="Family_name" id="Family name" required/>
                 <div class="validation"></div>
             </div>
 
             <div class="form-group">
             <p>E-mail <span>*</span></p>    
             <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
-                <input type="email" name="email" id="email" data-rule="email"/>
+                <input type="email" name="email" id="email" required />
                 <div class="validation"></div>
             </div>    
 
             <div class="form-group">
             <p>Street <span>*</span></p>
             <span class="icon-case"><i class="fa fa-home"></i></span>
-                <input type="text" name="Street" id="Street" data-rule="required"/>
+                <input type="text" name="Street" id="Street"  required/>
                 <div class="validation"></div>
             </div>
 
             <div class="form-group">
             <p>Nr <span>*</span></p>
             <span class="icon-case"><i class="fa fa-location-arrow"></i></span>
-                <input type="text" name="Nr" id="Nr" data-rule="required"/>
+                <input type="text" name="Nr" id="Nr"  required/>
                 <div class="validation"></div>
             </div>
 
             <div class="form-group">
             <p>Postcode <span>*</span></p>
             <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-                <input type="text" name="postal" id="postal" data-rule="required" />
+                <input type="text" name="postal" id="postal" required />
                 <div class="validation"></div>                
             </div>    
              
              <div class="form-group">
              <p>Date of Birth <span>*</span></p>
              <span class="icon-case"><i class="fa fa-birthday-cake"></i></span>
-             <input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="date_of_birth" id="Date of Birth" value="" data-rule="required" />                      
-             <div class="validation"></div>              
+              <input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="date_of_birth" id="Date of Birth" value="" required/>                <div class="validation"></div>                
             </div>
             
             <div class="form-group">
             <p>Gender <span>*</span></p>
             <span class="icon-case"><i class="fa fa-venus-mars"></i></span>
-            <select name="gender">
+            <select name="gender"   required="required">
+                   <option></option> 
                    <option value="male">M</option> 
-                   <option value="female" selected>F</option>
+                   <option value="female">F</option>
               </select><br>
               <div class="validation"></div>              
             </div>
@@ -84,7 +84,7 @@
             <div class="form-group">
             <p>City <span>*</span></p>
             <span class="icon-case"><i class="fa fa-building-o"></i></span>
-                <input type="text" name="City" id="City" data-rule="required" />
+                <input type="text" name="City" id="City" required />
                 <div class="validation"></div>
             </div>    
 
@@ -98,21 +98,21 @@
             <div class="form-group">
             <p>Ocupation <span>*</span></p>
             <span class="icon-case"><i class="fa fa-info"></i></span>
-                <input type="text" name="Ocupation" id="Ocupation" data-rule="required" />
+                <input type="text" name="Ocupation" id="Ocupation" required />
                 <div class="validation"></div>
             </div>
 
             <div class="form-group">
             <p>Babtised <span>*</span></p>    
             <span class="icon-case"><i class="fa fa-comment-o"></i></span>
-                <input type="text" name="Babtised" id="Babtised" data-rule="required" />
+                <input type="text" name="Babtised" id="Babtised" required />
                 <div class="validation"></div>
             </div>
         
             <div class="form-group">
             <p>Other <span>*</span></p>
             <span class="icon-case"><i class="fa fa-comments-o"></i></span>
-                <textarea name="Other" rows="14" data-rule="required" ></textarea>
+                <textarea name="Other" rows="14" required ></textarea>
                 <div class="validation"></div>
             </div>    
     </div>
