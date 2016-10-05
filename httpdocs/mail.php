@@ -1,6 +1,6 @@
 <?php
 
-function sendmail($attachment, $to, $to_name)
+function sendmail($attachment, $attachmentName = 'attachment.csv', $to, $to_name)
 {
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
@@ -10,7 +10,7 @@ function sendmail($attachment, $to, $to_name)
     //SMTP needs accurate times, and the PHP time zone MUST be set
     //This should be done in your php.ini, but this is how to do it if you don't have access to that
     date_default_timezone_set('Etc/UTC');
-    require 'lib/PHPMailer/PHPMailerAutoload.php';
+    require_once 'lib/PHPMailer/PHPMailerAutoload.php';
     //Create a new PHPMailer instance
     $mail = new PHPMailer;
     //Tell PHPMailer to use SMTP
@@ -42,7 +42,7 @@ function sendmail($attachment, $to, $to_name)
     //Set an alternative reply-to address
     $mail->addReplyTo('censusmandaean@gmail.com', 'Wisam Almarany');
     //Set who the message is to be sent to
-    $mail->addAddress('michiel.pleijte@gmail.com', 'Michiel Pleijte');
+    //$mail->addAddress('michiel.pleijte@gmail.com', 'Michiel Pleijte');
     $mail->addAddress($to, $to_name);
     //Set the subject line
     $mail->Subject = 'PHPMailer GMail SMTP test';
@@ -54,7 +54,7 @@ function sendmail($attachment, $to, $to_name)
     
     //Attach an image file
     //$mail->addAttachment('PHPMailer/examples/images/phpmailer_mini.png');
-    $mail->AddStringAttachment($attachment, 'attachment.csv', 'base64', 'text/csv');
+    $mail->AddStringAttachment($attachment, $attachmentName, 'base64', 'text/csv');
     //send the message, check for errors
     if (!$mail->send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;

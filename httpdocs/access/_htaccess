@@ -1,0 +1,11 @@
+AuthUserFile /Home directory/httpdocs/.htpasswd
+AuthType Basic
+AuthName "My Secret Folder"
+Require valid-user
+   <Files "">
+  Require valid-user
+</Files>
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>

@@ -12,7 +12,7 @@
   
   
   <form action="" method="post">
-        <h1>Should you have any questions, please do not hesitate to contact us :</h1>
+        <h1>If you have any questions, please contact us at: mandaeanc@mandaeancensus.org</h1>
         
     <div class="contentform">
         <div id="sendmessage"> Your message has been sent successfully. Thank you. </div>
@@ -64,7 +64,7 @@
              <div class="form-group">
              <p>Date of Birth <span>*</span></p>
              <span class="icon-case"><i class="fa fa-birthday-cake"></i></span>
-              <input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="date_of_birth" id="Date of Birth" value="" required/>                <div class="validation"></div>                
+              <input type="date" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" class="datepicker" name="date_of_birth" id="Date of Birth" value="" required/>                <div class="validation"></div>                
             </div>
             
             <div class="form-group">
@@ -72,8 +72,8 @@
             <span class="icon-case"><i class="fa fa-venus-mars"></i></span>
             <select name="gender"   required="required">
                    <option></option> 
-                   <option value="male">M</option> 
-                   <option value="female">F</option>
+                   <option value="male">F</option> 
+                   <option value="female">M</option>
               </select><br>
               <div class="validation"></div>              
             </div>
@@ -139,7 +139,13 @@ function array_2_csv($array)
     }
     return implode(';', $csv);
 }
+
 if (isset($_POST['submit'])) {
+	require 'lib/datetime.php';
+	$oDate = new ExtendedDateTime('now', new DateTimeZone("Europe/Amsterdam"));
+	$csvid = $oDate->format('m-d-Y H:i:s.u');
+
+	/*
     $from          = $_POST['email']; // this is the sender's Email address
     $first_name    = $_POST['first_name'];
     $last_name     = $_POST['last_name'];
@@ -153,20 +159,24 @@ if (isset($_POST['submit'])) {
     $phone         = $_POST['phone'];
     $Ocupation     = $_POST['Ocupation'];
     $Babtised      = $_POST['Babtised'];
+	
     $subject       = "Form submission";
     $subject2      = "Copy of your form submission";
     $message       = $first_name . " " . $last_name . " wrote the following:" . "\n\n" . $_POST['message'];
     $message2      = "Here is a copy of your message " . $first_name . "\n\n" . $_POST['message'];
     $headers       = "From:" . $from;
     $headers2      = "From:" . $to;
-    //sendmail($to, $subject, $message, $headers);
+*/
     
     $arr = $_POST;
+	$arr = array_merge(array('csvid' => $csvid), $arr);
+
     unset($arr['submit']);
     //echo "<pre>"; print_r($_POST); echo "</pre>";
     
     // Send the email
-    sendmail(array_2_csv($arr), 'wisam.almarany@gmail.com', 'Wisam Almarany');
+    sendmail(array_2_csv($arr), $csvid, 'wisam.almarany@gmail.com', 'Wisam Almarany');
+	sendmail(array_2_csv($arr), $csvid, 'michiel.pleijte@gmail.com', 'M. Pleijte');
 }
 ?>
    <div class="footer">
