@@ -11,7 +11,7 @@
 
   
   
-  <form action="" method="post">
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
         <h1>If you have any questions, please contact us at: mandaeanc@mandaeancensus.org</h1>
         
     <div class="contentform">
@@ -140,10 +140,12 @@ function array_2_csv($array)
     return implode(';', $csv);
 }
 
+
 if (isset($_POST['submit'])) {
 	require 'lib/datetime.php';
-	$oDate = new ExtendedDateTime('now', new DateTimeZone("Europe/Amsterdam"));
-	$csvid = $oDate->format('m-d-Y H:i:s.u');
+	//$oDate = new ExtendedDateTime('now', new DateTimeZone("Europe/Amsterdam"));
+	//$csvid = $oDate->format('m-d-Y\TH:i:s.u');
+	$csvid = "123test";
 
 	/*
     $from          = $_POST['email']; // this is the sender's Email address
@@ -167,16 +169,19 @@ if (isset($_POST['submit'])) {
     $headers       = "From:" . $from;
     $headers2      = "From:" . $to;
 */
-    
+
     $arr = $_POST;
 	$arr = array_merge(array('csvid' => $csvid), $arr);
 
     unset($arr['submit']);
-    //echo "<pre>"; print_r($_POST); echo "</pre>";
-    
+    echo "<pre>"; print_r($_POST); echo "</pre>";
+
     // Send the email
     sendmail(array_2_csv($arr), $csvid, 'wisam.almarany@gmail.com', 'Wisam Almarany');
-	sendmail(array_2_csv($arr), $csvid, 'michiel.pleijte@gmail.com', 'M. Pleijte');
+	//sendmail(array_2_csv($arr), $csvid, 'michiel.pleijte@gmail.com', 'M. Pleijte');
+	sendmail(array_2_csv($arr), $csvid, 'censusmandaean@gmail.com', 'mandaean mail');	
+	
+	
 }
 ?>
    <div class="footer">
